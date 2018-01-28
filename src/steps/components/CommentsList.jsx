@@ -1,6 +1,8 @@
 import React from 'react';
 var createReactClass = require('create-react-class');
 
+import './css/CommentsList.css';
+
 /**
  * Display list of notes
  */
@@ -44,7 +46,7 @@ var CommentsList = createReactClass(
                                 { comment.createdBy }
                                 <div className="pull-right">{ _self.dateFormatter(comment.date) }</div>
                             </div>
-                            <div className="col-xs-12">{ comment.content }</div>
+                            <div className="col-xs-12 content">{ comment.content }</div>
                         </div>
                     </div>
                 );

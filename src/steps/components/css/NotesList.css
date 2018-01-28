@@ -1,0 +1,13 @@
+#overview > div {
+    padding         : 15px;
+    background-color: white;
+}
+
+#overview .table.table-hover {
+    margin-bottom   : 0px;
+    background-color: lightgrey;
+}
+
+#overview table tbody tr {
+    cursor: pointer;
+}

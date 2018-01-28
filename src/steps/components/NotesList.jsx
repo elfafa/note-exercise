@@ -2,6 +2,8 @@ import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 var createReactClass = require('create-react-class');
 
+import './css/NotesList.css';
+
 /**
  * Display list of notes
  */

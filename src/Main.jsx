@@ -1,11 +1,13 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+
 import LoginStep from './steps/LoginStep';
 import OverviewNotesStep from './steps/OverviewNotesStep';
 import CreateNoteStep from './steps/CreateNoteStep';
 import AddNoteStep from './steps/AddNoteStep';
 import ReadNoteStep from './steps/ReadNoteStep';
+
 import './css/Main.css';
-var createReactClass = require('create-react-class');
 
 const STEP_LOGIN    = 1;
 const STEP_OVERVIEW = 2;

@@ -68,13 +68,13 @@ var LoginStep = createReactClass(
                 <div id="login">
                     <form>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Username *</label>
+                            <label className="control-label required">Username</label>
                             <div className="col-sm-12">
                                 <input type="text" className="form-control" id="username" name="userName" value={ this.state.userLogin } onChange={ this.setUserLogin } required />
                             </div>
                         </div>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Password *</label>
+                            <label className="control-label required">Password</label>
                             <div className="col-sm-12">
                                 <input type="password" className="form-control" id="password" name="password" value={ this.state.userPassword } onChange={ this.setUserPassword } required />
                             </div>

@@ -81,13 +81,13 @@ var CreateNoteStep = createReactClass(
                 <div id="login">
                     <form>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Title *</label>
+                            <label className="control-label required">Title</label>
                             <div className="col-sm-12">
                                 <input type="text" className="form-control" id="title" name="noteTitle" value={ this.state.noteTitle } onChange={ this.setNoteTitle } required />
                             </div>
                         </div>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Note *</label>
+                            <label className="control-label required">Note</label>
                             <div className="col-sm-12">
                                 <textarea className="form-control" id="content" name="noteComment" value={ this.state.noteComment } onChange={ this.setNoteComment } required />
                             </div>
