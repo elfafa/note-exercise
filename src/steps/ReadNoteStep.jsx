@@ -1,7 +1,7 @@
 import React from 'react';
-import NoteComponent from './components/NoteComponent';
-import NotesList from './components/NotesList';
 var createReactClass = require('create-react-class');
+
+import CommentsList from './components/CommentsList';
 
 /**
  * Manage read step
@@ -9,37 +9,19 @@ var createReactClass = require('create-react-class');
 var ReadNoteStep = createReactClass(
 {
     /**
-     * Initialize state
+     * Return to overview (change step)
      */
-    getInitialState()
+    doReturn()
     {
-        return {
-            'notes': [],
-        };
+        this.props.updateSpecialPage('overview');
     },
 
     /**
-     * Update current step after each update
+     * Add new comment (change step)
      */
-    componentDidMount()
+    doAdd()
     {
-        this.setState({ 'notes': this.refs.notes.getNotes() });
-    },
-
-    /**
-     * Launch logout process (reset user)
-     */
-    doLogout()
-    {
-        this.props.updateCurrentUser(null);
-    },
-
-    /**
-     * Launch create new note process (change step)
-     */
-    doCreate()
-    {
-        this.props.updateSpecialPage('create');
+        this.props.updateSpecialPage('add');
     },
 
     /**
@@ -48,27 +30,19 @@ var ReadNoteStep = createReactClass(
     render()
     {
         return (
-            <div className="main row" id="overviewStep">
-                <h3 className="col-xs-8">Notes overview</h3>
-                <div className="col-xs-4">
-                    <div className="btn btn-link pull-right" onClick={ this.doLogout }>
-                        Logout
+            <div className="main row" id="readStep">
+                <h3 className="col-xs-12">{ this.props.currentNote.title }</h3>
+                <div className="col-xs-6">
+                    <div className="btn btn-default btn-back" onClick={ this.doReturn }>
+                        Back to overview
                     </div>
                 </div>
-                <div id="overview">
-                    <NoteComponent ref="notes"/>
-                    <NotesList
-                        className="col-xs-12"
-                        updateCurrentNote={ this.props.updateCurrentNote }
-                        updateSpecialPage={ this.props.updateSpecialPage }
-                        notes={ this.state.notes }
-                    />
-                    <div className="col-xs-12">
-                        <div className="btn btn-success" onClick={ this.doCreate }>
-                            Create a new note >
-                        </div>
+                <div className="col-xs-6">
+                    <div className="btn btn-success pull-right" onClick={ this.doAdd }>
+                        Add additional note
                     </div>
                 </div>
+                <CommentsList comments={ this.props.currentNote.comments } />
             </div>
         );
     }

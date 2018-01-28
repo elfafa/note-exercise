@@ -36,11 +36,60 @@ body {
     text-transform: uppercase;
 }
 
-.btn.btn-success:after {
+.btn.btn-back:before, .btn.btn-success:after {
     font-family : 'Glyphicons Halflings';
-    content     : '\e080';
-    padding-left: 5px;
     position    : relative;
     top         : 1px;
     font-size   : 90%;
+}
+.btn.btn-success:after {
+    content     : '\e080';
+    padding-left: 5px;
+}
+.btn.btn-back:before {
+    content      : '\e079';
+    padding-right: 5px;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+
+#listing {
+    margin-top: 20px;
+}
+
+#listing > div {
+    margin-top: 10px;
+}
+
+#listing div img {
+    position: relative;
+    top     : 5px;
+    left    : 10%;
+    width   : 50px;
+    height  : 50px;
+}
+
+#listing div.comment {
+    background-color: white;
+    border-radius   : 5px;
+    padding         : 10px;
+    position: relative;
+}
+
+/* Responsiveness : big screen */
+@media screen and (min-width: 768px) {
+    #listing div.comment:before {
+        content     : '\A';
+        border-style: solid;
+        border-width: 10px 15px 10px 0;
+        border-color: transparent white transparent transparent;
+        position    : absolute;
+        left        : -15px;
+    }
+}
+
+#listing div.comment > div:first-child {
+    font-weight: bold;
 }

@@ -23,9 +23,13 @@ var Main = createReactClass(
      */
     getInitialState()
     {
+        var sessionNote = localStorage.getItem('currentNote');
+        if (sessionNote) {
+            sessionNote = JSON.parse(sessionNote);
+        }
         return {
             'currentUser': localStorage.getItem('currentUser'), // user name (empty if not logged)
-            'currentNote': localStorage.getItem('currentNote'), // infos of current note
+            'currentNote': sessionNote, // infos of current note
             'currentStep': localStorage.getItem('currentStep'), // which page are we on?
             'specialPage': '', // to switch from a step to another
         };
@@ -41,10 +45,10 @@ var Main = createReactClass(
             newStep = STEP_LOGIN;
         } else if (this.state.specialPage) {
             switch (this.state.specialPage) {
-                case 'create'  : newStep = STEP_CREATE; break;
-                case 'add'     : newStep = STEP_ADD; break;
-                case 'overview': newStep = STEP_OVERVIEW; break;
-                default        : newStep = STEP_READ; break;
+                case 'create': newStep = STEP_CREATE; break;
+                case 'add'   : newStep = STEP_ADD; break;
+                case 'read'  : newStep = STEP_READ; break;
+                default      : newStep = STEP_OVERVIEW; break;
             }
         } else {
             newStep = STEP_OVERVIEW;
@@ -73,8 +77,14 @@ var Main = createReactClass(
      */
     updateCurrentNote(note)
     {
-        localStorage.setItem('currentNote', note);
-        this.setState({ 'currentNote': note });
+        if (note) {
+            localStorage.setItem('currentNote', JSON.stringify(note));
+            this.setState({ 'currentNote': note });
+            this.updateSpecialPage('read');
+        } else {
+            localStorage.setItem('currentNote', note);
+            this.setState({ 'currentNote': note });
+        }
     },
 
     /**
@@ -112,10 +122,14 @@ var Main = createReactClass(
                         />);
             case STEP_ADD:
                 return (<AddNoteStep
+                            currentNote={ this.state.currentNote }
+                            updateCurrentNote={ this.updateCurrentNote }
                             updateSpecialPage={ this.updateSpecialPage }
                         />);
             case STEP_READ:
                 return (<ReadNoteStep
+                            currentNote={ this.state.currentNote }
+                            updateCurrentNote={ this.updateCurrentNote }
                             updateSpecialPage={ this.updateSpecialPage }
                         />);
             default:
