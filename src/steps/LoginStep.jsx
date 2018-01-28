@@ -40,6 +40,7 @@ var LoginStep = createReactClass(
      */
     doSubmit()
     {
+        // @todo: implementing a real authentication system
         this.props.updateCurrentUser(this.state.userLogin);
     },
 

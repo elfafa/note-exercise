@@ -8,22 +8,11 @@ var createReactClass = require('create-react-class');
 var NotesList = createReactClass(
 {
     /**
-     * Get list
+     * Go to note page on row click (update note)
      */
-    getList()
+    goToNote(note)
     {
-        return [
-            { 'noteId': 1, 'createdBy': 'Fabien', 'title': 'fake note', 'date': '2018-01-20 11:11:11' },
-            { 'noteId': 2, 'createdBy': 'Fabien', 'title': 'fake note', 'date': '2018-01-20 11:11:11' }
-        ];
-    },
-
-    /**
-     * Update parents datas on event click
-     */
-    selectRow(row)
-    {
-        this.props.updateCurrentNote(row);
+        this.props.updateCurrentNote(note);
     },
 
     /**
@@ -33,7 +22,7 @@ var NotesList = createReactClass(
     {
         var dateFormat = require('dateformat');
 
-        return dateFormat(row.date, "dS mmmm yyyy");
+        return dateFormat(row.date, "d/mm/yy 'at' H:M");
     },
 
     /**
@@ -42,7 +31,7 @@ var NotesList = createReactClass(
     render()
     {
         const options = {
-            'onRowClick'       : this.selectRow,
+            'onRowClick'       : this.goToNote,
             'hideSizePerPage'  : true,
             'ignoreSinglePage' : true,
             'noDataText'       : 'None available note',
@@ -50,7 +39,7 @@ var NotesList = createReactClass(
         return (
             <BootstrapTable
                 className="col-xs-12"
-                data={ this.getList() }
+                data={ this.props.notes }
                 bordered={ false }
                 options={ options }
                 keyField={ 'noteId' }
