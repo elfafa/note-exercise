@@ -61,7 +61,7 @@ var Main = createReactClass(
     },
 
     /**
-     * Update state.currentUser
+     * Update currentUser in state/storage
      */
     updateCurrentUser(user)
     {
@@ -75,7 +75,7 @@ var Main = createReactClass(
     },
 
     /**
-     * Update state.currentNote
+     * Update currentNote in state/storage
      */
     updateCurrentNote(note)
     {
@@ -90,7 +90,7 @@ var Main = createReactClass(
     },
 
     /**
-     * Update state.currentStep
+     * Update currentStep in state/storage
      */
     updateCurrentStep(step)
     {

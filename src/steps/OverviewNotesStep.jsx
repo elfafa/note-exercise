@@ -1,10 +1,11 @@
 import React from 'react';
-import NoteComponent from './components/NoteComponent';
-import NotesList from './components/NotesList';
 var createReactClass = require('create-react-class');
 
+import NoteComponent from './components/NoteComponent';
+import NotesList from './components/NotesList';
+
 /**
- * Manage overview step
+ * Manage overview notes step
  */
 var OverviewNotesStep = createReactClass(
 {

@@ -1,11 +1,12 @@
 import React from 'react';
 var createReactClass = require('create-react-class');
+
 import NoteComponent from './components/NoteComponent';
 
 const MIN_CHAR = 4;
 
 /**
- * Manage login step
+ * Manage create note step
  */
 var CreateNoteStep = createReactClass(
 {
@@ -15,25 +16,25 @@ var CreateNoteStep = createReactClass(
     getInitialState()
     {
         return {
-            'noteTitle'  : '',
-            'noteComment': '',
+            'title'  : '',
+            'comment': '',
         };
     },
 
     /**
-     * Update state.noteTitle with input event
+     * Update state.title with input event
      */
-    setNoteTitle(event)
+    setTitle(event)
     {
-        this.setState({ 'noteTitle': event.target.value });
+        this.setState({ 'title': event.target.value });
     },
 
     /**
-     * Update state.noteComment with input event
+     * Update state.comment with input event
      */
-    setNoteComment(event)
+    setComment(event)
     {
-        this.setState({ 'noteComment': event.target.value });
+        this.setState({ 'comment': event.target.value });
     },
 
     /**
@@ -41,7 +42,7 @@ var CreateNoteStep = createReactClass(
      */
     doSubmit()
     {
-        this.refs.notes.addNote(this.state.noteTitle, this.state.noteComment);
+        this.refs.notes.addNote(this.state.title, this.state.comment);
         this.doCancel();
     },
 
@@ -51,18 +52,18 @@ var CreateNoteStep = createReactClass(
     doCancel()
     {
         this.setState({
-            'noteTitle'  : '',
-            'noteComment': ''
+            'title'  : '',
+            'comment': ''
         });
         this.props.updateSpecialPage('overview');
     },
 
     /**
-     * Get class for login button
+     * Get class for submit button (disabled if form invalid)
      */
     getButtonClassName()
     {
-        var isEnabled = (MIN_CHAR <= this.state.noteTitle.length && MIN_CHAR <= this.state.noteComment.length);
+        var isEnabled = (MIN_CHAR <= this.state.title.length && MIN_CHAR <= this.state.comment.length);
         var btnClass  = 'btn btn-success pull-right';
         if (! isEnabled) {
             btnClass += ' disabled';
@@ -83,13 +84,13 @@ var CreateNoteStep = createReactClass(
                         <div className="form-group col-md-6">
                             <label className="control-label required">Title</label>
                             <div className="col-sm-12">
-                                <input type="text" className="form-control" id="title" name="noteTitle" value={ this.state.noteTitle } onChange={ this.setNoteTitle } required />
+                                <input type="text" className="form-control" id="title" name="title" value={ this.state.title } onChange={ this.setTitle } required />
                             </div>
                         </div>
                         <div className="form-group col-md-6">
                             <label className="control-label required">Note</label>
                             <div className="col-sm-12">
-                                <textarea className="form-control" id="content" name="noteComment" value={ this.state.noteComment } onChange={ this.setNoteComment } required />
+                                <textarea className="form-control" id="content" name="comment" value={ this.state.comment } onChange={ this.setComment } required />
                             </div>
                         </div>
                         <div className="col-xs-6">

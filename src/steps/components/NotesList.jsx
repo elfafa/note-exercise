@@ -24,7 +24,7 @@ var NotesList = createReactClass(
     {
         var dateFormat = require('dateformat');
 
-        return dateFormat(row.date, "d/mm/yy 'at' H:M");
+        return dateFormat(row.date, "dd/mm/yy 'at' HH:MM");
     },
 
     /**

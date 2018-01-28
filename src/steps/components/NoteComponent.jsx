@@ -2,7 +2,7 @@ import $ from 'jquery';
 var createReactClass = require('create-react-class');
 
 /**
- * NoteComponent to manage note datas
+ * Manage notes (load, add, save)
  */
 var NoteComponent = createReactClass(
 {
@@ -48,11 +48,11 @@ var NoteComponent = createReactClass(
 
     /**
      * Load notes
+     * @todo: load notes from an API
      */
     getNotes()
     {
         var notes = this.state.notesList;
-        // @todo: load notes from an API
         if (! notes.length) {
             notes = localStorage.getItem('notes');
             if (! notes) {
@@ -126,6 +126,7 @@ var NoteComponent = createReactClass(
 
     /**
      * Save notes
+     * @todo: save notes through an API
      */
     saveNotes(notes)
     {

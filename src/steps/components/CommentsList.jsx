@@ -4,7 +4,7 @@ var createReactClass = require('create-react-class');
 import './css/CommentsList.css';
 
 /**
- * Display list of notes
+ * Display list of comments for a note
  */
 var CommentsList = createReactClass(
 {
@@ -18,12 +18,12 @@ var CommentsList = createReactClass(
         var today      = new Date();
         var yesterday  = new Date('-1 day');
         if (dateObject.setHours(0,0,0,0) === today.setHours(0,0,0,0)) {
-            return dateFormat(date, "'Today at' H:M");
+            return dateFormat(date, "'Today at' HH:MM");
         } else if (dateObject.setHours(0,0,0,0) === yesterday.setHours(0,0,0,0)) {
-            return dateFormat(date, "'Yesterday at' H:M");
+            return dateFormat(date, "'Yesterday at' HH:MM");
         }
 
-        return dateFormat(date, "d/mm/yy 'at' H:M");
+        return dateFormat(date, "dd/mm/yy 'at' HH:MM");
     },
 
     /**

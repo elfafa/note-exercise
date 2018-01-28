@@ -4,7 +4,7 @@ var createReactClass = require('create-react-class');
 import CommentsList from './components/CommentsList';
 
 /**
- * Manage read step
+ * Manage read note step
  */
 var ReadNoteStep = createReactClass(
 {

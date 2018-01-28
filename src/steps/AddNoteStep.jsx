@@ -7,7 +7,7 @@ import NoteComponent from './components/NoteComponent';
 const MIN_CHAR = 4;
 
 /**
- * Manage read step
+ * Manage add note step
  */
 var AddNoteStep = createReactClass(
 {
@@ -17,16 +17,16 @@ var AddNoteStep = createReactClass(
     getInitialState()
     {
         return {
-            'noteComment': '',
+            'comment': '',
         };
     },
 
     /**
-     * Update state.noteComment with input event
+     * Update state.comment with input event
      */
     setNoteComment(event)
     {
-        this.setState({ 'noteComment': event.target.value });
+        this.setState({ 'comment': event.target.value });
     },
 
     /**
@@ -34,8 +34,7 @@ var AddNoteStep = createReactClass(
      */
     doSubmit()
     {
-        var note = this.refs.notes.addComment(this.props.currentNote.id, this.state.noteComment);
-        console.log(note);
+        var note = this.refs.notes.addComment(this.props.currentNote.id, this.state.comment);
         this.props.updateCurrentNote(note);
         this.doCancel();
     },
@@ -45,16 +44,16 @@ var AddNoteStep = createReactClass(
      */
     doCancel()
     {
-        this.setState({ 'noteComment': '' });
+        this.setState({ 'comment': '' });
         this.props.updateSpecialPage('read');
     },
 
     /**
-     * Get class for login button
+     * Get class for submit button (disabled if form invalid)
      */
     getButtonClassName()
     {
-        var isEnabled = (MIN_CHAR <= this.state.noteComment.length);
+        var isEnabled = (MIN_CHAR <= this.state.comment.length);
         var btnClass  = 'btn btn-success pull-right';
         if (! isEnabled) {
             btnClass += ' disabled';
@@ -72,7 +71,7 @@ var AddNoteStep = createReactClass(
                 <h3 className="col-xs-12">{ this.props.currentNote.title }</h3>
                 <form>
                     <div className="form-group col-xs-12">
-                        <textarea className="form-control" id="content" name="noteComment" value={ this.state.noteComment } onChange={ this.setNoteComment } required />
+                        <textarea className="form-control" id="content" name="comment" value={ this.state.comment } onChange={ this.setNoteComment } required />
                     </div>
                 </form>
                 <div className="col-xs-6">
