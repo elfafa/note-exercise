@@ -17,13 +17,33 @@ var NoteComponent = createReactClass(
         };
     },
 
+    /**
+     * Get maximum identifier from a list
+     */
     getMaxIdFromList(list)
     {
         var maxId = 0;
         $.each(list, function(index, element) {
             maxId = Math.max(element.id, maxId);
         });
+
         return maxId;
+    },
+
+    /**
+     * Sort a list from the most recent element to the oldest
+     */
+    sortList(list)
+    {
+        list.sort(function(element1, element2){
+            var key1 = new Date(element1.date);
+            var key2 = new Date(element2.date);
+            if (key1 < key2) return 1;
+            if (key1 > key2) return -1;
+            return 0;
+        });
+
+        return list;
     },
 
     /**
@@ -46,7 +66,7 @@ var NoteComponent = createReactClass(
             }
         }
         this.setState({
-            'notesList': notes,
+            'notesList': this.sortList(notes),
             'maxId'    : Math.max(this.getMaxIdFromList(notes), this.state.maxId)
         });
 
@@ -59,7 +79,7 @@ var NoteComponent = createReactClass(
     addNote(title, comment)
     {
         var notes = this.getNotes();
-        notes.push({
+        notes.unshift({
             'id'       : this.state.maxId + 1,
             'title'    : title,
             'createdBy': localStorage.getItem('currentUser'),
@@ -82,21 +102,26 @@ var NoteComponent = createReactClass(
      */
     addComment(noteId, comment)
     {
-        var notes = this.getNotes();
+        var _self       = this;
+        var notes       = _self.getNotes();
+        var currentNote = null;
         $.each(notes, function (index, note) {
             if (note.id === noteId) {
-                var maxId = this.getMaxIdFromList(note.comments);
-                notes[index].comments.push({
-                    'id'       : maxId,
+                var maxId = _self.getMaxIdFromList(note.comments);
+                notes[index].comments.unshift({
+                    'id'       : maxId + 1,
                     'createdBy': localStorage.getItem('currentUser'),
                     'content'  : comment,
                     'date'     : Date.now(),
                 });
-                this.setState({ 'notesList': notes });
-                this.saveNotes(notes);
+                _self.setState({ 'notesList': notes });
+                _self.saveNotes(notes);
+                currentNote = note;
                 return false;
             }
         });
+
+        return currentNote;
     },
 
     /**
