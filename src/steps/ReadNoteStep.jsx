@@ -34,12 +34,12 @@ var ReadNoteStep = createReactClass(
                 <h3 className="col-xs-12">{ this.props.currentNote.title }</h3>
                 <div className="col-xs-6">
                     <div className="btn btn-default btn-back" onClick={ this.doReturn }>
-                        Back to overview
+                        Back<span className="hidden-xxs"> to overview</span>
                     </div>
                 </div>
                 <div className="col-xs-6">
                     <div className="btn btn-success pull-right" onClick={ this.doAdd }>
-                        Add additional note
+                        Add<span className="hidden-xxs"> additional note</span>
                     </div>
                 </div>
                 <CommentsList comments={ this.props.currentNote.comments } />

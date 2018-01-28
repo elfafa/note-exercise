@@ -42,3 +42,15 @@ body {
 .no-padding {
     padding: 0px !important;
 }
+
+/* Responsiveness : small screen */
+@media screen and (max-width: 300px) {
+    span.hidden-xxxs {
+        display: none;
+    }
+}
+@media screen and (max-width: 472px) {
+    span.hidden-xxs {
+        display: none;
+    }
+}

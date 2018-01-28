@@ -99,7 +99,7 @@ var CreateNoteStep = createReactClass(
                         </div>
                         <div className="col-xs-6">
                             <div className={ this.getButtonClassName() } onClick={ this.doSubmit }>
-                                Add Note
+                                Add<span className="hidden-xxxs"> Note</span>
                             </div>
                         </div>
                     </form>

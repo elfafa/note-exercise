@@ -11,3 +11,10 @@
 #overview table tbody tr {
     cursor: pointer;
 }
+
+/* Responsiveness : small screen */
+@media screen and (max-width: 472px) {
+    #overview table {
+        font-size: small;
+    }
+}
