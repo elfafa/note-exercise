@@ -61,7 +61,6 @@ var OverviewNotesStep = createReactClass(
                     <NotesList
                         className="col-xs-12"
                         updateCurrentNote={ this.props.updateCurrentNote }
-                        updateSpecialPage={ this.props.updateSpecialPage }
                         notes={ this.state.notes }
                     />
                     <div className="col-xs-12">
