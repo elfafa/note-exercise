@@ -3,6 +3,7 @@ const testLib = require('../../../test-lib');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+
 import NoteComponent from '../NoteComponent';
 
 describe('COMPONENTS - NoteComponent', () => {
