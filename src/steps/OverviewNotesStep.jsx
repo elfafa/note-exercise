@@ -1,9 +1,11 @@
 import React from 'react';
-import NotesList from './components/NotesList';
 var createReactClass = require('create-react-class');
 
+import NoteComponent from './components/NoteComponent';
+import NotesList from './components/NotesList';
+
 /**
- * Manage overview step
+ * Manage overview notes step
  */
 var OverviewNotesStep = createReactClass(
 {
@@ -13,7 +15,16 @@ var OverviewNotesStep = createReactClass(
     getInitialState()
     {
         return {
+            'notes': [],
         };
+    },
+
+    /**
+     * Update current step after each update
+     */
+    componentDidMount()
+    {
+        this.setState({ 'notes': this.refs.notes.getNotes() });
     },
 
     /**
@@ -21,7 +32,15 @@ var OverviewNotesStep = createReactClass(
      */
     doLogout()
     {
-        this.props.updateCurrentUser('');
+        this.props.updateCurrentUser(null);
+    },
+
+    /**
+     * Launch create new note process (change step)
+     */
+    doCreate()
+    {
+        this.props.updateSpecialPage('create');
     },
 
     /**
@@ -38,10 +57,17 @@ var OverviewNotesStep = createReactClass(
                     </div>
                 </div>
                 <div id="overview">
+                    <NoteComponent ref="notes"/>
                     <NotesList
+                        className="col-xs-12"
                         updateCurrentNote={ this.props.updateCurrentNote }
-                        updateSpecialPage={ this.props.updateSpecialPage }
+                        notes={ this.state.notes }
                     />
+                    <div className="col-xs-12">
+                        <div className="btn btn-success" onClick={ this.doCreate }>
+                            Create a new note
+                        </div>
+                    </div>
                 </div>
             </div>
         );

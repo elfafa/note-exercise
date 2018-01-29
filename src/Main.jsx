@@ -1,11 +1,13 @@
 import React from 'react';
+var createReactClass = require('create-react-class');
+
 import LoginStep from './steps/LoginStep';
 import OverviewNotesStep from './steps/OverviewNotesStep';
 import CreateNoteStep from './steps/CreateNoteStep';
 import AddNoteStep from './steps/AddNoteStep';
 import ReadNoteStep from './steps/ReadNoteStep';
+
 import './css/Main.css';
-var createReactClass = require('create-react-class');
 
 const STEP_LOGIN    = 1;
 const STEP_OVERVIEW = 2;
@@ -23,9 +25,13 @@ var Main = createReactClass(
      */
     getInitialState()
     {
+        var sessionNote = localStorage.getItem('currentNote');
+        if (sessionNote) {
+            sessionNote = JSON.parse(sessionNote);
+        }
         return {
             'currentUser': localStorage.getItem('currentUser'), // user name (empty if not logged)
-            'currentNote': localStorage.getItem('currentNote'), // infos of current note
+            'currentNote': sessionNote, // infos of current note
             'currentStep': localStorage.getItem('currentStep'), // which page are we on?
             'specialPage': '', // to switch from a step to another
         };
@@ -37,39 +43,59 @@ var Main = createReactClass(
     componentDidUpdate()
     {
         var newStep = null;
-        if (! this.state.currentUser) {
+        if (null === this.state.currentUser) {
             newStep = STEP_LOGIN;
-        } else if (! this.state.currentNote) {
-            newStep = STEP_OVERVIEW;
-        } else {
+        } else if (this.state.specialPage) {
             switch (this.state.specialPage) {
                 case 'create': newStep = STEP_CREATE; break;
                 case 'add'   : newStep = STEP_ADD; break;
-                default      : newStep = STEP_READ; break;
+                case 'read'  : newStep = STEP_READ; break;
+                default      : newStep = STEP_OVERVIEW; break;
             }
+        } else {
+            newStep = STEP_OVERVIEW;
         }
         if (this.state.currentStep !== newStep) {
-            localStorage.setItem('currentStep', newStep);
-            this.setState({ 'currentStep': newStep });
+            this.updateCurrentStep(newStep);
         }
     },
 
     /**
-     * Update state.currentUser
+     * Update currentUser in state/storage
      */
     updateCurrentUser(user)
     {
         localStorage.setItem('currentUser', user);
         this.setState({ 'currentUser': user });
+        if (null === user) {
+            this.updateCurrentNote(null);
+            this.updateCurrentStep(null);
+            localStorage.clear();
+        }
     },
 
     /**
-     * Update state.currentNote
+     * Update currentNote in state/storage
      */
     updateCurrentNote(note)
     {
-        localStorage.setItem('currentNote', note);
-        this.setState({ 'currentNote': note });
+        if (note) {
+            localStorage.setItem('currentNote', JSON.stringify(note));
+            this.setState({ 'currentNote': note });
+            this.updateSpecialPage('read');
+        } else {
+            localStorage.setItem('currentNote', note);
+            this.setState({ 'currentNote': note });
+        }
+    },
+
+    /**
+     * Update currentStep in state/storage
+     */
+    updateCurrentStep(step)
+    {
+        localStorage.setItem('currentStep', step);
+        this.setState({ 'currentStep': step });
     },
 
     /**
@@ -85,7 +111,7 @@ var Main = createReactClass(
      */
     render()
     {
-        switch (parseInt(this.state.currentStep)) {
+        switch (parseInt(this.state.currentStep, 10)) {
             case STEP_OVERVIEW:
                 return (<OverviewNotesStep
                             updateCurrentUser={ this.updateCurrentUser }
@@ -94,16 +120,19 @@ var Main = createReactClass(
                         />);
             case STEP_CREATE:
                 return (<CreateNoteStep
-                            updateCurrentNote={ this.updateCurrentNote }
-                            updateSpecialPage={ this.props.updateSpecialPage }
+                            updateSpecialPage={ this.updateSpecialPage }
                         />);
             case STEP_ADD:
                 return (<AddNoteStep
-                            updateSpecialPage={ this.props.updateSpecialPage }
+                            currentNote={ this.state.currentNote }
+                            updateCurrentNote={ this.updateCurrentNote }
+                            updateSpecialPage={ this.updateSpecialPage }
                         />);
             case STEP_READ:
                 return (<ReadNoteStep
-                            updateSpecialPage={ this.props.updateSpecialPage }
+                            currentNote={ this.state.currentNote }
+                            updateCurrentNote={ this.updateCurrentNote }
+                            updateSpecialPage={ this.updateSpecialPage }
                         />);
             default:
                 return (<LoginStep

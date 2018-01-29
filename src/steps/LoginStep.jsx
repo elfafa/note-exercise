@@ -14,33 +14,34 @@ var LoginStep = createReactClass(
     getInitialState()
     {
         return {
-            'userLogin'   : '',
-            'userPassword': '',
+            'login'   : '',
+            'password': '',
         };
     },
 
     /**
-     * Update state.userLogin with input event
+     * Update state.login with input event
      */
-    setUserLogin(event)
+    setLogin(event)
     {
-        this.setState({ 'userLogin': event.target.value });
+        this.setState({ 'login': event.target.value });
     },
 
     /**
-     * Update state.userPassword with input event
+     * Update state.password with input event
      */
-    setUserPassword(event)
+    setPassword(event)
     {
-        this.setState({ 'userPassword': event.target.value });
+        this.setState({ 'password': event.target.value });
     },
 
     /**
      * Launch login process (save user)
+     * @todo: implement a real authentication system
      */
     doSubmit()
     {
-        this.props.updateCurrentUser(this.state.userLogin);
+        this.props.updateCurrentUser(this.state.login);
     },
 
     /**
@@ -48,7 +49,7 @@ var LoginStep = createReactClass(
      */
     getButtonClassName()
     {
-        var isEnabled = (MIN_CHAR <= this.state.userLogin.length && MIN_CHAR <= this.state.userPassword.length);
+        var isEnabled = (MIN_CHAR <= this.state.login.length && MIN_CHAR <= this.state.password.length);
         var btnClass  = 'btn btn-success';
         if (! isEnabled) {
             btnClass += ' disabled';
@@ -67,15 +68,15 @@ var LoginStep = createReactClass(
                 <div id="login">
                     <form>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Username *</label>
+                            <label className="control-label required">Username</label>
                             <div className="col-sm-12">
-                                <input type="text" className="form-control" id="username" name="userName" value={ this.state.userLogin } onChange={ this.setUserLogin } required />
+                                <input type="text" className="form-control" id="username" name="userName" value={ this.state.login } onChange={ this.setLogin } required />
                             </div>
                         </div>
                         <div className="form-group col-md-6">
-                            <label className="control-label">Password *</label>
+                            <label className="control-label required">Password</label>
                             <div className="col-sm-12">
-                                <input type="password" className="form-control" id="password" name="password" value={ this.state.userPassword } onChange={ this.setUserPassword } required />
+                                <input type="password" className="form-control" id="password" name="password" value={ this.state.password } onChange={ this.setPassword } required />
                             </div>
                         </div>
                         <div className="col-md-6">

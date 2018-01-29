@@ -2,30 +2,55 @@ body {
     background-color: whitesmoke;
 }
 
+.main {
+    margin: 10px;
+}
+
+.control-label.required:after {
+    content: ' *';
+    color  : red;
+}
 .form-control {
-    background-color  : #ebebeb;
     border            : 1px solid #e0e0e0;
     border-radius     : 0;
     box-shadow        : none;
     -webkit-box-shadow:none;
     margin-bottom     : 20px;
+    display           : initial;
+    margin            : 0 3px 20px 0;
 }
 
-.input-group .form-control {
-    display: initial;
-    margin : 0 3px;
+.btn.btn-success {
+    text-transform: uppercase;
 }
 
-.main {
-    margin: 10px;
+.btn.btn-back:before, .btn.btn-success:after {
+    font-family : 'Glyphicons Halflings';
+    position    : relative;
+    top         : 1px;
+    font-size   : 90%;
+}
+.btn.btn-success:after {
+    content     : '\e080';
+    padding-left: 5px;
+}
+.btn.btn-back:before {
+    content      : '\e079';
+    padding-right: 5px;
 }
 
-.table.table-hover {
-    margin-bottom: 0px;
-    background-color: lightgrey;
+.no-padding {
+    padding: 0px !important;
 }
 
-#overview > div {
-    padding: 15px;
-    background-color: white;
+/* Responsiveness : small screen */
+@media screen and (max-width: 300px) {
+    span.hidden-xxxs {
+        display: none;
+    }
+}
+@media screen and (max-width: 472px) {
+    span.hidden-xxs {
+        display: none;
+    }
 }
